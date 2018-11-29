@@ -1,0 +1,7 @@
+// component css goes here
+mat-toolbar{
+    background: black;
+    & img {
+        height: 30px;
+    }
+}

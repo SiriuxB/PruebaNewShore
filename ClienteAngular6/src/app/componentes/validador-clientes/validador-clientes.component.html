@@ -1,0 +1,22 @@
+<!--component html goes here -->
+<!--The content below is only a placeholder and can be replaced.-->
+<mat-toolbar> <img src="../../../assets/newshore_logo-neg.png"></mat-toolbar>
+<div style="text-align:center">
+    <br>
+    <button mat-raised-button color="primary" (click)="botonContenido.click()">cargar archivo de contenido</button>
+    <input #botonContenido type="file" style="display:none;" (change)="CargarArchivo($event.target.files,'contenido')">
+    <br>
+    <span>{{archivoContenido?.name}}</span>
+    <br>
+    <button mat-raised-button color="primary" (click)="botonRegistro.click()">cargar archivo de registro</button>
+    <input #botonRegistro type="file" style="display:none;" (change)="CargarArchivo($event.target.files,'registro')">
+    <br>
+    <span>{{archivoRegistro?.name}}</span>
+    <br>
+    <span style="color: brown">{{mensajeError}}</span>
+    <br>
+    <button mat-raised-button [disabled]="(archivoContenido == null) || 
+    (archivoRegistro == null)"
+        color="primary" (click)="Enviar()">Evaluar</button>
+
+</div>
