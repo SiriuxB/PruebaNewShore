@@ -57,7 +57,7 @@ export class ValidadorClientesComponent {
         Obj = encodeURIComponent(Obj);
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + Obj);
-        element.setAttribute('download', "");
+        element.setAttribute('download', "Resultado");
         element.style.display = 'none';
         document.body.appendChild(element);
         element.click();

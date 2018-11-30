@@ -11,6 +11,8 @@ namespace Servicios.Implementacion
 {
     public class ServicioClientes : IServiciosClientes
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// conversion de TXT a lista entidad contenido
         /// </summary>
@@ -18,14 +20,22 @@ namespace Servicios.Implementacion
         /// <returns></returns>
         public IEnumerable<Contenido> ConvertirTxtTOContenido(FileInfo contenido)
         {
-            var listaContenido = new List<Contenido>();
-            this.ExtraerCaracteres(contenido).ForEach(x =>
+            try
             {
-                var itemContenido = new Contenido();
-                itemContenido.Caracter = x[0];
-                listaContenido.Add(itemContenido);
-            });
-            return listaContenido;
+                var listaContenido = new List<Contenido>();
+                this.ExtraerCaracteres(contenido).ForEach(x =>
+                {
+                    var itemContenido = new Contenido();
+                    itemContenido.Caracter = x[0];
+                    listaContenido.Add(itemContenido);
+                });
+                return listaContenido;
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return null;
+            }
         }
         /// <summary>
         /// conversion de TXT a lista entidad Registro
@@ -34,14 +44,22 @@ namespace Servicios.Implementacion
         /// <returns></returns>
         public IEnumerable<Registro> ConvertirTxtTORegistro(FileInfo registro)
         {
-            var listaRegistro = new List<Registro>();
-            this.ExtraerCaracteres(registro).ForEach(x =>
+            try
             {
-                var itemRegistro = new Registro();
-                itemRegistro.NombreCliente = x;
-                listaRegistro.Add(itemRegistro);
-            });
-            return listaRegistro;
+                var listaRegistro = new List<Registro>();
+                this.ExtraerCaracteres(registro).ForEach(x =>
+                {
+                    var itemRegistro = new Registro();
+                    itemRegistro.NombreCliente = x;
+                    listaRegistro.Add(itemRegistro);
+                });
+                return listaRegistro;
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return null;
+            }
         }
         /// <summary>
         /// Metodo validacion de clientes
@@ -51,13 +69,21 @@ namespace Servicios.Implementacion
         /// <returns></returns>
         public IEnumerable<Registro> ValidarListaClientes(List<Registro> listaClientes, List<Contenido> contenido)
         {
-            listaClientes.ForEach(cliente =>
+            try
             {
-                var clienteChar = SplitCadena(cliente.NombreCliente);
-                var flat = 0;
-                ValidarCadenaCliente(contenido, clienteChar, flat, cliente);
-            });
-            return listaClientes;
+                listaClientes.ForEach(cliente =>
+                {
+                    var clienteChar = SplitCadena(cliente.NombreCliente);
+                    var flat = 0;
+                    ValidarCadenaCliente(contenido, clienteChar, flat, cliente);
+                });
+                return listaClientes;
+            }
+            catch (Exception e)
+            {
+                log.Error(e.Message);
+                return null;
+            }
         }
         /// <summary>
         /// 
